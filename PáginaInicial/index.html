@@ -18,13 +18,13 @@
     --text:#0f2a26;
   }
 
-  *{
-    box-sizing:border-box
-  }
+  *{box-sizing:border-box;margin:0;padding:0}
   html,body{
     height:100%;
-    margin:0;
-    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
   }
 
   .pagina {
@@ -35,6 +35,7 @@
     justify-content:flex-start;
   }
 
+  /* Sidebar */
   .sidebar {
     width:72px;
     background:#e9efed;
@@ -51,6 +52,7 @@
     border-radius:10px;
     z-index:30;
     box-shadow:0 6px 18px rgba(6,20,18,0.04);
+    transition:transform .3s ease;
   }
 
   .nav {
@@ -80,24 +82,19 @@
   }
 
   .nav a.active {
-    background:var(--green-500);color:#fff;
-  }
-  .nav a.active .fa {
+    background:var(--green-500);
     color:#fff;
   }
+  .nav a.active .fa {color:#fff;}
   .nav a:hover {
     background:#b4f0e0;
     transform:scale(1.15);
   }
-  .user:hover {
-    background:#e7f8f4;
-  }
-  .nav a:hover .fa {
-    color:var(--green-600);
-  }
+  .nav a:hover .fa {color:var(--green-600);}
   .sidebar .bottom {
     margin-top:auto;
-    display:flex;flex-direction:column;
+    display:flex;
+    flex-direction:column;
     gap:12px;
     align-items:center;
   }
@@ -105,36 +102,46 @@
   .main {
     margin-left:85px;
     flex:1;
-    padding:0;
     display:flex;
     flex-direction:column;
-    min-width:0;
-    background:#e9efed;}
+    background:#e9efed;
+  }
 
   .header {
     height:64px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:12px;
     background:#e9efed;
     padding:0 28px;
     border-bottom:1px solid rgba(0,0,0,0.05);
     position:relative;
+    z-index:50;
   }
 
   .logo {
-    display:flex;align-items:center;
+    display:flex;
+    align-items:center;
     gap:14px;
   }
-  .logo img{
-    height:35px
+
+  .logo img{height:35px}
+
+  .menu-toggle {
+    display:none;
+    font-size:22px;
+    color:var(--text);
+    background:none;
+    border:none;
+    cursor:pointer;
   }
 
   .user {
-    display:flex;align-items:center;
+    display:flex;
+    align-items:center;
     gap:12px;
-    background:#fff;border-radius:28px;
+    background:#fff;
+    border-radius:28px;
     padding:8px 12px;
     box-shadow:0 6px 18px rgba(6,20,18,0.03);
     position:relative;
@@ -152,21 +159,17 @@
     color:#fff;
     font-weight:700;
   }
+
   .user .meta{
     display:flex;
     flex-direction:column;
     font-size:13px;
-    line-height:1
-  }
-  .user .meta .name{
-    font-weight:700
-  }
-  .user .meta .role{
-    color:var(--muted);
-    font-size:12px
+    line-height:1;
   }
 
-  /* Menu suspenso do usuário */
+  .user .meta .name{font-weight:700}
+  .user .meta .role{color:var(--muted);font-size:12px}
+
   .user-menu {
     display:none;
     position:absolute;
@@ -188,16 +191,12 @@
     font-size:14px;
     transition:background 0.2s;
   }
-  .user-menu a:hover {
-    background:#f2f5f4;
-  }
-
-  .user.active .user-menu {
-    display:block;
-  }
+  .user-menu a:hover {background:#f2f5f4;}
+  .user.active .user-menu {display:block;}
 
   .content-box {
-    background:#fff;margin:5px;
+    background:#fff;
+    margin:5px;
     padding:24px;
     border-radius:14px;
     box-shadow:0 6px 18px rgba(6,20,18,0.05);
@@ -219,20 +218,20 @@
     justify-content:space-between;
     flex:1;
   }
-  .contIntro {
-    max-width:60%;
-  }
+  .contIntro {max-width:60%;}
   .BemVindo {
     font-size:55px;
     color:var(--green-500);
-    margin:6px 0 18px 0;font-weight:700;
+    margin:6px 0 18px 0;
+    font-weight:700;
     line-height:1;
   }
   .apresentacao {
     font-size:34px;
     color:#07120f;
     font-weight:700;
-    line-height:1.05;margin-bottom:6px;
+    line-height:1.05;
+    margin-bottom:6px;
   }
   .descricao {
     color:var(--muted);
@@ -240,21 +239,41 @@
     margin-top:10px;
     margin-bottom:130px;
   }
-  .ilustracao {
-    width:52%;
-    display:flex;align-items:center;
-    justify-content:center;
-  }
-  .ilustracao img {
-    max-width:100%;
-    height:auto;
-    display:block;
-  }
+  .ilustracao {width:52%;display:flex;align-items:center;justify-content:center;}
+  .ilustracao img {max-width:100%;height:auto;display:block;}
 
   @media (max-width:900px){
-    .sidebar{display:none}
-    .main{margin-left:0}
-    .introducao{flex-direction:column-reverse;gap:18px}
+    .logo{margin: auto;}
+    .main {margin-left:0; width: 100%;}
+    .sidebar {
+      transform:translateX(-100%);
+      position:fixed;
+      left:0;
+      top:0;
+      bottom:0;
+      border-radius:0;
+      width:100px;
+      padding-top:70px;
+      background:#e9efed;
+      box-shadow:4px 0 18px rgba(0,0,0,0.15);
+    }
+    .sidebar.active {transform:translateX(0);}
+    .menu-toggle {display:block;}
+    .user {display:none;}
+    .sidebar .user {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      background:none;
+      box-shadow:none;
+      padding:0;
+      border-radius:0;
+    }
+    .sidebar .user .meta {
+      display:none;
+    }
+    .ilustracao{display: none;}
+    .introducao{transform: translateY(-25%);}
     .contIntro{max-width:100%}
     .BemVindo{font-size:36px;text-align:left}
     .apresentacao{font-size:22px;text-align:left}
@@ -264,7 +283,7 @@
 <body>
 
 <div class="pagina">
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <nav class="nav">
       <a href="/PáginaInicial/index.html" class="active" title="Página inicial"><i class="fa fa-home"></i></a>
       <a href="../Cadastros/index.html" title="Cadastros"><i class="fa fa-plus-circle"></i></a>
@@ -277,6 +296,7 @@
 
   <main class="main">
     <div class="header">
+      <button class="menu-toggle" id="menuToggle"><i class="fa fa-bars"></i></button>
       <div class="logo">
         <img src="../PáginaInicial/imgs/logo.png" alt="Cerbela" onerror="this.style.display='none'">
       </div>
@@ -287,8 +307,6 @@
           <div class="name">Alex Pedroso Tavella</div>
           <div class="role">Gestor</div>
         </div>
-
-        <!-- Menu do usuário -->
         <div class="user-menu" id="userMenu">
           <a href="#">Meu Perfil</a>
           <a href="../index.html">Sair</a>
@@ -297,9 +315,7 @@
     </div>
 
     <div class="content-box">
-
       <div id="titpage">Página Inicial</div>
-
       <section class="introducao">
         <div class="contIntro">
           <div class="BemVindo">Bem Vindo !</div>
@@ -315,6 +331,7 @@
 </div>
 
 <script>
+  // Menu usuário
   const userMenuToggle = document.getElementById('userMenuToggle');
   document.addEventListener('click', function(e) {
     if (userMenuToggle.contains(e.target)) {
@@ -322,6 +339,13 @@
     } else {
       userMenuToggle.classList.remove('active');
     }
+  });
+
+  // Menu lateral (mobile)
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
   });
 </script>
 
