@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cerbela — Página de Cadastro de Orçamentos</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  :root{
+    --green-500:#75bcaa;
+    --green-600:#3f8f7c;
+    --teal-700:#166754;
+    --bg:#f1f6f5;
+    --panel:#f7faf9;
+    --muted:#6e7f7a;
+    --text:#0f2a26;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    height:100%;
+    margin:0;
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .pagina {
+    display:flex;
+    height:100vh;
+    width:100%;
+    align-items:stretch;
+    justify-content:flex-start;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width:72px;
+    background:#e9efed;
+    border-right:1px solid rgba(0,0,0,0.04);
+    padding:13px 12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    position:fixed;
+    left:12px;
+    top:0px;
+    bottom:12px;
+    border-radius:10px;
+    z-index:30;
+    box-shadow:0 6px 18px rgba(6,20,18,0.04);
+    transition:transform .3s ease;
+  }
+
+  .nav {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:center;
+    width:100%;
+  }
+
+  .nav a {
+    width:44px;
+    height:44px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#243c37;
+    text-decoration:none;
+    background:transparent;
+    transition:all .2s ease;
+  }
+
+  .nav a .fa{
+    font-size:18px;
+    transition:transform .2s ease,color .2s ease;
+  }
+
+  .nav a.active {
+    background:var(--green-500);
+    color:#fff;
+  }
+  .nav a.active .fa {color:#fff;}
+  .nav a:hover {
+    background:#b4f0e0;
+    transform:scale(1.15);
+  }
+  .nav a:hover .fa {color:var(--green-600);}
+  .sidebar .bottom {
+    margin-top:auto;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:center;
+  }
+
+  .main {
+    margin-left:85px;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    background:#e9efed;
+  }
+
+  .header {
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#e9efed;
+    padding:0 28px;
+    border-bottom:1px solid rgba(0,0,0,0.05);
+    position:relative;
+    z-index:50;
+  }
+
+  .logo {
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+
+  .logo img{height:35px}
+
+  .menu-toggle {
+    display:none;
+    font-size:22px;
+    color:var(--text);
+    background:none;
+    border:none;
+    cursor:pointer;
+  }
+
+  .user {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#fff;
+    border-radius:28px;
+    padding:8px 12px;
+    box-shadow:0 6px 18px rgba(6,20,18,0.03);
+    position:relative;
+    cursor:pointer;
+  }
+
+  .avatar{
+    width:36px;
+    height:36px;
+    border-radius:999px;
+    background:var(--green-500);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-weight:700;
+  }
+
+  .user .meta{
+    display:flex;
+    flex-direction:column;
+    font-size:13px;
+    line-height:1;
+  }
+
+  .user .meta .name{font-weight:700}
+  .user .meta .role{color:var(--muted);font-size:12px}
+
+  .user-menu {
+    display:none;
+    position:absolute;
+    top:58px;
+    right:0;
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.08);
+    overflow:hidden;
+    width:192px;
+    z-index:50;
+  }
+
+  .user-menu a {
+    display:block;
+    padding:10px 16px;
+    color:var(--text);
+    text-decoration:none;
+    font-size:14px;
+    transition:background 0.2s;
+  }
+  .user-menu a:hover {background:#f2f5f4;}
+  .user.active .user-menu {display:block;}
+
+  .content-box {
+    background:#fff;
+    margin:5px;
+    padding:24px;
+    border-radius:14px;
+    box-shadow:0 6px 18px rgba(6,20,18,0.05);
+    flex:1;
+    display:flex;
+    flex-direction:column;
+  }
+
+  h2{
+    font-size:22px;
+    margin-bottom:24px;
+    color:var(--green-600);
+  }
+  .section{
+    margin-bottom:28px;
+    padding-bottom:12px;
+    border-bottom:1px solid #e8f0ee;
+  }
+  .section h3{
+    color:var(--green-600);
+    margin-bottom:16px;
+    font-size:18px;
+  }
+
+  .form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(500px,1fr));
+    gap:16px;
+  }
+  label{
+    font-weight:600;
+    font-size:14px;
+    margin-bottom:6px;
+    display:block;
+  }
+  input,select{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid #d4dfdb;
+    border-radius:8px;
+    font-size:14px;
+    background:#f9fdfc;
+    transition:border-color .2s;
+  }
+  input:focus,select:focus{border-color:var(--green-500);outline:none;}
+
+  .actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin-top:20px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    padding:10px 18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+  }
+  .btn-salvar{
+    background:var(--green-500);
+    color:#fff;
+  }
+  .btn-salvar:hover{background:var(--green-600);}
+  .btn-cancelar{
+    background:#e5e9e8;
+    color:#333;
+  }
+  .btn-cancelar:hover{background:#d7dddb;}
+
+  /* BOTÃO ADICIONAR ITEM */
+  .btn-adicionar {
+    width: 100%;
+    background: var(--green-500);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+  }
+  .btn-adicionar:hover {
+    background: var(--green-600);
+  }
+
+  /* RESPONSIVIDADE */
+  @media (max-width:900px){
+    .logo{margin:auto;}
+    .main {margin-left:0; width: 100%;}
+    .sidebar {
+      transform:translateX(-100%);
+      position:fixed;
+      left:0;
+      top:0;
+      bottom:0;
+      border-radius:0;
+      width:100px;
+      padding-top:70px;
+      background:#e9efed;
+      box-shadow:4px 0 18px rgba(0,0,0,0.15);
+    }
+    .sidebar.active {transform:translateX(0);}
+    .menu-toggle {display:block;}
+    .user {display:none;}
+    .sidebar .user {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      background:none;
+      box-shadow:none;
+      padding:0;
+      border-radius:0;
+    }
+    .sidebar .user .meta {
+      display:none;
+    }
+    .form-grid{display:inline;}
+  }
+</style>
+</head>
+
+<body>
+
+<div class="pagina">
+  <aside class="sidebar" id="sidebar">
+    <nav class="nav">
+      <a href="../../PáginaInicial/index.html" title="Página inicial"><i class="fa fa-home"></i></a>
+      <a href="../index.html" class="active" title="Cadastros"><i class="fa fa-plus-circle"></i></a>
+      <a href="../../Consultas/index.html" title="Consultas"><i class="fa fa-search"></i></a>
+      <a href="#" title="Relatórios"><i class="fa fa-file-text-o"></i></a>
+      <a href="#" title="Dashboards"><i class="fa fa-pie-chart"></i></a>
+      <a href="#" title="Configurações"><i class="fa fa-cog"></i></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="header">
+      <button class="menu-toggle" id="menuToggle"><i class="fa fa-bars"></i></button>
+      <div class="logo">
+        <img src="../../PáginaInicial/imgs/logo.png" alt="Cerbela" onerror="this.style.display='none'">
+      </div>
+
+      <div class="user" id="userMenuToggle">
+        <div class="avatar"><i style="color: rgb(56, 56, 56);" class="fa fa-user"></i></div>
+        <div class="meta">
+          <div class="name">Alex Pedroso Tavella</div>
+          <div class="role">Gestor</div>
+        </div>
+        <div class="user-menu" id="userMenu">
+          <a href="#">Meu Perfil</a>
+          <a href="../../index.html">Sair</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-box">
+      <h2>Cadastro de Orçamento</h2>
+      <form>
+        <div class="section">
+          <h3>Informações básicas</h3>
+          <div class="form-grid">
+            <div><label>Número do Orçamento:</label><input type="text" placeholder="0001" readonly></div>
+            <div><label>Data de Emissão:</label><input type="text" placeholder="30/10/2025" readonly></div>
+            <div><label>Cliente:</label><input type="text" placeholder="Ex: João da Silva"></div>
+            <div><label>Condição de pagamento:</label><input type="text" placeholder="Ex: 12x no cartão de crédito"></div>
+            <div><label>Valor do Frete:</label><input type="number" placeholder="Ex: 120"></div>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="section">
+          <h3>Endereço</h3>
+          <div class="form-grid">
+            <div><label>Endereço:</label><input type="text" placeholder="Ex: Rua José Tavares, 123"></div>
+            <div><label>Bairro:</label><input type="text" placeholder="Ex: Jardim Vieira"></div>
+            <div><label>Cidade:</label><input type="text" placeholder="Ex: Tatuí"></div>
+            <div><label>Estado:</label><input type="text" placeholder="Ex: SP"></div>
+          </div>
+        </div>               
+
+        <br>
+
+        <div class="section" id="itensSection">
+          <h3>Itens do pedido</h3>
+          <div class="form-grid item">
+            <div><label>Item:</label><input type="text" placeholder="Ex: Hexágono"></div>
+            <div><label>Quantidade:</label><input type="number" placeholder="Ex: 235,24"></div>
+          </div>
+        </div>  
+
+        <button type="button" class="btn-adicionar" id="addItemBtn">
+          <i class="fa fa-plus-circle"></i> Adicionar novo item
+        </button>
+
+        <div class="actions">
+          <button type="reset" class="btn btn-cancelar">Cancelar</button>
+          <button type="submit" class="btn btn-salvar">Gerar Orçamento</button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script>
+  // Menu usuário
+  const userMenuToggle = document.getElementById('userMenuToggle');
+  document.addEventListener('click', function(e) {
+    if (userMenuToggle.contains(e.target)) {
+      userMenuToggle.classList.toggle('active');
+    } else {
+      userMenuToggle.classList.remove('active');
+    }
+  });
+
+  // Menu lateral (mobile)
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+  });
+
+  // Adicionar novos itens dinamicamente
+  const addItemBtn = document.getElementById('addItemBtn');
+  const itensSection = document.getElementById('itensSection');
+
+  addItemBtn.addEventListener('click', () => {
+    const novoItem = document.createElement('div');
+    novoItem.classList.add('form-grid', 'item');
+    novoItem.innerHTML = `
+      <div><label>Item:</label><input type="text" placeholder="Ex: Hexágono"></div>
+      <div><label>Quantidade:</label><input type="number" placeholder="Ex: 235,24"></div>
+    `;
+    itensSection.appendChild(novoItem);
+  });
+</script>
+
+</body>
+</html>
