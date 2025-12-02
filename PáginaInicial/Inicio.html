@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cerbela — Página Inicial</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+
+<div class="pagina">
+  <aside class="sidebar" id="sidebar">
+    <nav class="nav">
+      <a href="Inicio.html" class="active" title="Página inicial"><i class="fa fa-home"></i></a>
+      <a href="../Cadastros/Cadastros.html" title="Cadastros"><i class="fa fa-plus-circle"></i></a>
+      <a href="../Consultas/Consultas.html" title="Consultas"><i class="fa fa-search"></i></a>
+      <a href="../Relatorios/Relatorios.html" title="Relatórios"><i class="fa fa-file-text-o"></i></a>
+      <a href="#" title="Dashboards"><i class="fa fa-pie-chart"></i></a>
+      <a href="../Estoque/consEstoque.html" title="Estoque"><i class="fa fa-cubes"></i></a>
+      <a href="#" title="Configurações"><i class="fa fa-cog"></i></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="header">
+      <button class="menu-toggle" id="menuToggle"><i class="fa fa-bars"></i></button>
+      <div class="logo">
+        <img src="../PáginaInicial/imgs/logo.png" alt="Cerbela" onerror="this.style.display='none'">
+      </div>
+
+      <div class="user" id="userMenuToggle">
+        <div class="avatar"><i style="color: rgb(56, 56, 56);" class="fa fa-user"></i></div>
+        <div class="meta">
+          <div class="name">Alex Pedroso Tavella</div>
+          <div class="role">Gestor</div>
+        </div>
+        <div class="user-menu" id="userMenu">
+          <a href="#">Meu Perfil</a>
+          <a href="../index.html">Sair</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-box">
+      <div id="titpage">Página Inicial</div>
+      <section class="introducao">
+        <div class="contIntro">
+          <div class="BemVindo">Bem Vindo !</div>
+          <div class="apresentacao">Sistema de<br><span style="font-weight:700">Gerenciamento de Pedidos</span><br>&amp; Geração de Relatórios</div>
+          <p class="descricao">Painel para consulta, controle de pedidos, geração de relatórios e dashboards analíticos.</p>
+        </div>
+        <div class="ilustracao">
+          <img src="imgs/UserNotebook.png" alt="Ilustração">
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+  const userMenuToggle = document.getElementById('userMenuToggle');
+  document.addEventListener('click', function(e) {
+    if (userMenuToggle.contains(e.target)) {
+      userMenuToggle.classList.toggle('active');
+    } else {
+      userMenuToggle.classList.remove('active');
+    }
+  });
+
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); 
+    sidebar.classList.toggle('active');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+      sidebar.classList.remove('active');
+    }
+  });
+</script>
+
+</body>
+</html>
